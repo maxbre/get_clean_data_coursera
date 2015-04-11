@@ -2,6 +2,8 @@
 
 ***
 
+# Introduction
+
 In this Github repository you will find:
 
 1. this "readme" markdown file describing the objective of the analysis;
