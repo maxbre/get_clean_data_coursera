@@ -7,7 +7,7 @@
 # 3 - Uses descriptive activity names to name the activities in the data set
 # 4 - Appropriately labels the data set with descriptive variable names. 
 # 5 - From the data set in step 4, creates a second, independent tidy data set with the average 
-#    of each variable for each activity and each subject.
+#     of each variable for each activity and each subject.
  
 # change path of wd accordingly
 mywd<-"/home/max/Documenti/MOOC/coursera/get_clean_data/course_project" 
@@ -149,13 +149,13 @@ feat_labs<-read.table("./uci_har_dataset/features.txt", stringsAsFactors = FALSE
 names(feat_labs)<-c('Vnum', 'feature_label')
 
 # here to select variables ending with mean() or std()
-
+# single pattern
 #feat_labs[grep('mean()',feat_labs$feature_label, fixed=TRUE),]
 #feat_labs[grep('std()',feat_labs$feature_label, fixed=TRUE),]
 #feat_labs[grep('\\b*-mean()\\b',feat_labs$feature_label),]
 #feat_labs[grep('\\b*-std()\\b',feat_labs$feature_label),]
 
-# use of multiple pattern
+# one shot: multiple pattern
 toMatch <- c("\\b*-mean()\\b", "\\b*-std()\\b")
 paste(toMatch,collapse="|")
 
@@ -179,11 +179,19 @@ dim(my_subset)
 
 # pay attention to description of variables, including unit of measures
 
-# assign descriptive name to variables: dimensionless (standardized -1,1)
+# assign name to variables: dimensionless (standardized -1,1)
 names(my_subset)[-c(67:69)]<-sub_feat$feature_label
 
 names(my_subset)
 str(my_subset)
+
+# use more descriptive names for variables
+names(my_subset)<-gsub("Acc", "Accelerometer", names(my_subset))
+names(my_subset)<-gsub("BodyBody", "Body", names(my_subset))
+names(my_subset)<-gsub("^f", "Frequency", names(my_subset))
+names(my_subset)<-gsub("Gyro", "Gyroscope", names(my_subset))
+names(my_subset)<-gsub("Mag", "Magnitude", names(my_subset))
+names(my_subset)<-gsub("^t", "Time", names(my_subset))
 
 # create an independent tidy data set 
 # with the average of each variable for each activity and each subject
@@ -192,7 +200,8 @@ my_means<-(aggregate(my_subset[,1:66], list(subject=my_subset[,67], activity=my_
 # check dimensions: (subjects * activities) equals n rows of my_means df
 length(unique(my_subset[,67])) * length(unique(my_subset[,68]))==nrow(my_means)
 
+dim(my_means)
+
 #export final result
 # and this is completing step 5
 write.table(my_means, "./export_dataset.txt", row.names=FALSE)
-
