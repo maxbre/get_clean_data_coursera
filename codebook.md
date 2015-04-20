@@ -2,9 +2,11 @@
 
 ***
 
-For complete reproducibility of the analysis the R script is also dealing with the downloading and unpzipping of the data files (and also the creation of storing directories). Moreover, a specific user function, called "recursive_replace_lowercase", has been defined in order to get rid of any eventual annoying (and error prone) white space and/or case letters within the file names.
+For complete reproducibility of the analysis the R script is dealing with the downloading and unpzipping of the data files (and also the creation of storing directories) from url: https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip.
 
-The whole data analysis process is assuming that the structure of directories and file names created by the R script is kept invariant (any chages may hampering the results). Please set your own path for the working directory accordingly (as deafult ".").
+Moreover, a specific user function, called "recursive_replace_lowercase", has been defined in order to get rid of any eventual annoying (and error prone) white space and/or case letters within the file names.
+
+The whole data analysis process is assuming that the structure of directories and file names created by the R script is kept invariant (any chages may hampering the results). Please set your own path for the working directory accordingly (as per deafult ".").
 
 For detailed information on the original dataset upon which has been carried out the present analysis please check the file "readme.txt" present on the directory "uci_har_dataset" automatically created by running the R script "run_analysis.R".
 
