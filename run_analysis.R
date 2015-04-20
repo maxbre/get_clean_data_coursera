@@ -15,6 +15,9 @@ mywd<-"."
 #set the working dir
 setwd(mywd)
 
+# check that the working directory is what you expect
+getwd()
+
 # set file url
 myurl<-"https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip" 
 
