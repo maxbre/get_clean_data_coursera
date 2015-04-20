@@ -1,6 +1,5 @@
 
 # instructions taken from the peer assessment web page on coursera
-
 # you should create one R script called run_analysis.R that does the following.
 # 1 - merges the training and the test sets to create one data set.
 # 2 - extracts only the measurements on the mean and standard deviation for each measurement. 
@@ -12,7 +11,7 @@
 # change path name of working dir accordingly
 mywd<-"." 
 
-#set the working dir
+# set the working dir
 setwd(mywd)
 
 # check that the working directory is what you expect
@@ -22,23 +21,23 @@ getwd()
 myurl<-"https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip" 
 
 # download file
-#download.file(myurl, destfile="dataset_local.zip")
- 
-# eventual use of the method curl for downloading
+# download.file(myurl, destfile="dataset_local.zip")
+# with the eventual use of the method curl (if needed)
 download.file(myurl, destfile="dataset_local.zip", method="curl")
 
-# unzip file
+# unzip data file to local directory
 unzip("dataset_local.zip")
 
 # start here some housekeeping (tidying up dir and file names)
-
 # remove annoying spaces and capital letters within working dir and file names 
 # here define a recursive funcion for that purpose
 
-# load the base package "tools" for the later use of function file_ext() inside the user defined function
-# see next
+# load the base package "tools" 
 
 library(tools)
+
+# this is done for getting the function file_ext()
+# inside the user defined function (see next)
 
 # this is my user defined function
 # for removing spaces and put everything in lowercase in dir and file name  
@@ -79,15 +78,16 @@ recursive_replace_lowercase<-function(path=".", replace=" ", with="_", lowercase
   
 }
 
-# apply the user defined function to the current working dir 
-# where it is supposed to be the dataset, eventually change accordingly
+# apply the user defined function 
+# to the current working dir where it is supposed to be the dataset
+# eventually change accordingly
 
 recursive_replace_lowercase()
 
-#set test path
+# set test path
 testpath<-"./uci_har_dataset/test/"
 
-#read test files
+# read test files
 xtest<-read.table(paste0(testpath,"x_test.txt"))
 ytest<-read.table(paste0(testpath,"y_test.txt"))
 stest<-read.table(paste0(testpath,"subject_test.txt"))
@@ -96,16 +96,16 @@ stest<-read.table(paste0(testpath,"subject_test.txt"))
 names(ytest)<-"activity"
 names(stest)<-"subject"
 
-#column bind test dataset
+# column bind test dataset
 test<-cbind(xtest, ytest, stest)
 
 names(test)
 dim(test)
 
-#set train path
+# set train path
 trainpath<-"./uci_har_dataset/train/"
 
-#read train files
+# read train files
 xtrain<-read.table(paste0(trainpath,"x_train.txt"))
 ytrain<-read.table(paste0(trainpath,"y_train.txt"))
 strain<-read.table(paste0(trainpath,"subject_train.txt"))
@@ -138,6 +138,8 @@ names(act_labs)<-c("activity","activity_label")
 
 # and this is completing step 1 of the assignment
 all<-merge(all, act_labs, sort=FALSE)
+
+# check all
 names(all)
 head(all)
 dim(all)

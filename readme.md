@@ -1,5 +1,5 @@
-
-## Peer assessment on Coursera "Getting and Cleaning Data"
+# Coursera "Getting and Cleaning Data"
+## Peer assessment of course project
 
 ***
 
