@@ -2,7 +2,7 @@
 
 ***
 
-For a more complete reproducibility of the analysis the R script is dealing with the web download of data (from url: https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip), local extraction of files and creation of the storing directories.
+For a complete reproducibility of the analysis the R script is dealing with the web download of data (from url: https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip), local extraction of files and creation of the storing directories.
 
 Moreover, a specific user defined function, called "recursive_replace_lowercase", has been added in order to get rid of any eventual annoying (and error prone) white space and/or upper case letters within the file or directory names.
 
