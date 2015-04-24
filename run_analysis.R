@@ -14,10 +14,10 @@ mywd<-"."
 # set the working dir
 setwd(mywd)
 
-# check that the working directory is what you expect
+# check that the working directory is exactly what you expect
 getwd()
 
-# set file url
+# set the url file
 myurl<-"https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip" 
 
 # download file
@@ -40,7 +40,7 @@ library(tools)
 # inside the user defined function (see next)
 
 # this is my user defined function
-# for removing spaces and put everything in lowercase in dir and file name  
+# for removing spaces and put everything in lowercase in dir and file names  
 
 recursive_replace_lowercase<-function(path=".", replace=" ", with="_", lowercase=TRUE) {
   
@@ -99,6 +99,7 @@ names(stest)<-"subject"
 # column bind test dataset
 test<-cbind(xtest, ytest, stest)
 
+# check names and dim of test data set
 names(test)
 dim(test)
 
@@ -117,19 +118,21 @@ names(strain)<-"subject"
 # column bind train data set
 train<-cbind(xtrain, ytrain, strain)
 
+# check names and dim of train data set
 names(train)
 dim(train)
 
 # row bind of test and train dataset
 all<-rbind(test, train)
 
+# check names and dim of the whole data set
 names(all)
 dim(all)
 
-# check number of rows
+# check number of rows against different data sets
 dim(all)[1]==(dim(train)[1]+dim(test))[1]
 
-# check number of columns
+# check number of columns against different data sets
 dim(all)[2]== dim(train)[2] & dim(test)[2]
 
 # read file for activity labels
@@ -139,13 +142,12 @@ names(act_labs)<-c("activity","activity_label")
 # and this is completing step 1 of the assignment
 all<-merge(all, act_labs, sort=FALSE)
 
-# check all
+# check names and dim of the whole data set
 names(all)
-head(all)
 dim(all)
 
 # rearrange columns of df
-# important step for the proper selection of variables, see next
+# this is an important step for the proper selection of variables, see next
 all<-all[,c(2:564,1)]
 names(all)
 
@@ -160,7 +162,7 @@ names(feat_labs)<-c('Vnum', 'feature_label')
 #feat_labs[grep('\\b*-mean()\\b',feat_labs$feature_label),]
 #feat_labs[grep('\\b*-std()\\b',feat_labs$feature_label),]
 
-# one shot: multiple pattern
+# in one shot: multiple pattern
 toMatch <- c("\\b*-mean()\\b", "\\b*-std()\\b")
 paste(toMatch,collapse="|")
 
@@ -177,18 +179,12 @@ col_index<-sub_feat$Vnum
 # and this is completing step 2 of the assignment
 my_subset<-all[ , c(col_index, 562:564)]
 
-dim(my_subset)
-
 # assign decriptive names to variables
 # and this is completing steps 3 and 4 of the assignment 
 # (along with has already been done on beforehand)
 
 # assign name to variables: dimensionless (standardized -1,1)
 names(my_subset)[-c(67:69)]<-sub_feat$feature_label
-
-# check
-names(my_subset)
-str(my_subset)
 
 # use more descriptive names for variables
 names(my_subset)<-gsub("Acc", "Accelerometer", names(my_subset))
@@ -208,9 +204,9 @@ my_means<-aggregate(my_subset[,1:66], list(subject=my_subset[,67], activity=my_s
 # check dimensions: (subjects * activities) equals n rows of my_means df
 length(unique(my_subset[,67])) * length(unique(my_subset[,68]))==nrow(my_means)
 
-# check
+# check dim of means df
 dim(my_means)
 
-#export final result
+# export final result
 # and this is completing step 5
 write.table(my_means, "./export_dataset.txt", row.names=FALSE)
